@@ -56,8 +56,12 @@ public class WeatherStation implements Runnable {
              * See docs.oracle.com/javase/tutorial/java/data/numberformat.html
              * for more information on formatting output.
              */
-            //
-            System.out.printf("Reading is %6.2f degrees C%n", celsius) ;
+            
+            /*  
+            * Conor - Solution: Using the initial reading value stored, divide value by 100.0
+            *         and concatenate with the pre-existing print string.
+            */
+            System.out.printf("Reading is %6.2f degrees C (and " + reading / 100.0 + " degrees K)%n", celsius) ;
         }
     }
 
