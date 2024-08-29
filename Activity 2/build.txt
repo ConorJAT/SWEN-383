@@ -1,0 +1,8 @@
+Activity #2 - Weather Station (w/ Displays) - Conor Race
+
+For my personal implementation of Activity #2, I decided to add a user
+input feature that would allow the user to decide how they want the data
+displayed. The key goes as follows: 1 = AWT, 2 = Swing, and 3 = Terminal.
+Additionally, the program checks for any and all invalid inputs, preventing
+it from crashing. All displays can be accessed in the WeatherStation.java
+program file, but no two displays can run simultaneously; only one at a time.
