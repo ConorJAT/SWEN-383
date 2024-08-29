@@ -13,7 +13,7 @@ public class WeatherStation implements Runnable {
 
     private final KelvinTempSensor sensor ; // Temperature sensor.
 
-    // private final AWTUI awtui;
+    private final AWTUI awtui;
     
     private final SwingUI swingui;
 
@@ -25,7 +25,7 @@ public class WeatherStation implements Runnable {
      */
     public WeatherStation() {
         sensor = new KelvinTempSensor() ;
-        // awtui = new AWTUI();
+        awtui = new AWTUI();
         swingui = new SwingUI();
     }
 
@@ -63,7 +63,11 @@ public class WeatherStation implements Runnable {
              * for more information on formatting output.
              */
             
-            System.out.printf("Reading is %6.2f degrees C (and " + reading / 100.0 + " degrees K)%n", celsius) ;
+            System.out.printf("Reading is %6.2f degrees C (and " + String.format("%6.2f", reading / 100.0) + " degrees K)%n", celsius) ;
+
+            awtui.celsiusField.setText(String.format("%6.2f", celsius));
+            awtui.kelvinField.setText(String.format("%6.2f", reading / 100.0));
+
             swingui.setKelvinJLabel(reading / 100.0);
             swingui.setCelsiusJLabel(celsius);
         }
