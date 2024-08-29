@@ -39,7 +39,7 @@ public class SwingUI extends JFrame {
      * show the temperatures.
      */
     public SwingUI() {
-        super("Weather Station") ;
+        super("Weather Station (SwingUI)") ;
 
         /*
          * WeatherStation frame is a grid of 1 row by an indefinite

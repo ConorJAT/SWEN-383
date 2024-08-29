@@ -9,6 +9,8 @@
  * which runs the periodic sensing.
  */
 
+import java.util.Scanner;
+
 public class WeatherStation implements Runnable {
 
     private final KelvinTempSensor sensor ; // Temperature sensor.
@@ -19,14 +21,26 @@ public class WeatherStation implements Runnable {
 
     private final long PERIOD = 1000 ;      // 1 sec = 1000 ms.
 
+    private final int userChoice;
+
     /*
      * When a WeatherStation object is created, it in turn creates the sensor
      * object it will use.
      */
-    public WeatherStation() {
+    public WeatherStation(int userChoice) {
         sensor = new KelvinTempSensor() ;
-        awtui = new AWTUI();
-        swingui = new SwingUI();
+        this.userChoice = userChoice;
+
+        if (userChoice == 1) {
+            awtui = new AWTUI();
+            swingui = null;
+        } else if (userChoice == 2) {
+            awtui = null;
+            swingui = new SwingUI();
+        } else {
+            awtui = null;
+            swingui = null;
+        }
     }
 
     /*
@@ -61,15 +75,17 @@ public class WeatherStation implements Runnable {
              *
              * See docs.oracle.com/javase/tutorial/java/data/numberformat.html
              * for more information on formatting output.
-             */
+            */
             
-            System.out.printf("Reading is %6.2f degrees C (and " + String.format("%6.2f", reading / 100.0) + " degrees K)%n", celsius) ;
-
-            awtui.celsiusField.setText(String.format("%6.2f", celsius));
-            awtui.kelvinField.setText(String.format("%6.2f", reading / 100.0));
-
-            swingui.setKelvinJLabel(reading / 100.0);
-            swingui.setCelsiusJLabel(celsius);
+            if (userChoice == 1) {
+                awtui.celsiusField.setText(String.format("%6.2f", celsius));
+                awtui.kelvinField.setText(String.format("%6.2f", reading / 100.0));
+            } else if (userChoice == 2) {
+                swingui.setKelvinJLabel(reading / 100.0);
+                swingui.setCelsiusJLabel(celsius);
+            } else {
+                System.out.printf("Reading is %6.2f degrees C (and " + String.format("%6.2f", reading / 100.0) + " degrees K)%n", celsius) ;
+            }
         }
     }
 
@@ -80,7 +96,28 @@ public class WeatherStation implements Runnable {
      *      Start the Thread.
      */
     public static void main(String[] args) {
-        WeatherStation ws = new WeatherStation() ;
+        Scanner scanner = new Scanner(System.in);
+        int userChoice = 0;
+        
+        System.out.println("Welcome to the RIT Weather Station!");
+        System.out.println("How would you like your data displayed?");
+        System.out.println("(AWT = 1 | Swing = 2 | Terminal = 3)");
+        while (userChoice <= 0 || userChoice >= 4) {  
+            
+            
+            try {
+                System.out.print("Your choice: ");
+                userChoice = scanner.nextInt();
+                if (userChoice <= 0 || userChoice >= 4) { 
+                    System.out.println("Invalid option! Please choose again.");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid option! Please choose again.");
+                scanner = new Scanner(System.in);
+            }
+        }
+
+        WeatherStation ws = new WeatherStation(userChoice) ;
         Thread thread = new Thread(ws) ;
         thread.start() ;
     }

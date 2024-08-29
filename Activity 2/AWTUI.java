@@ -33,7 +33,7 @@ public class AWTUI extends Frame {
      * show the temperatures.
      */
     public AWTUI() {
-        super("Weather Station") ;
+        super("Weather Station (AWTUI)") ;
 
         /*
          * WeatherStation frame is a grid of 1 row by an indefinite number
