@@ -9,34 +9,38 @@
  * which runs the periodic sensing.
  */
 
-import java.util.Scanner;
+import java.util.Scanner;       // Scanner util for user input.
 
 public class WeatherStation implements Runnable {
 
     private final KelvinTempSensor sensor ; // Temperature sensor.
 
-    private final AWTUI awtui;
+    private final AWTUI awtui;              // AWT UI Display Object.
     
-    private final SwingUI swingui;
+    private final SwingUI swingui;          // Swing UI Display Object.
 
     private final long PERIOD = 1000 ;      // 1 sec = 1000 ms.
 
-    private final int userChoice;
+    private final int userChoice;           // Choice of user display.
 
     /*
      * When a WeatherStation object is created, it in turn creates the sensor
      * object it will use.
      */
     public WeatherStation(int userChoice) {
+        // Always instantiate a new TempSensor and userChoice.
         sensor = new KelvinTempSensor() ;
         this.userChoice = userChoice;
 
+        // 1 == AWT Display (Swing is null)
         if (userChoice == 1) {
             awtui = new AWTUI();
             swingui = null;
+        // 2 == Swing Display (AWT is null)
         } else if (userChoice == 2) {
             awtui = null;
             swingui = new SwingUI();
+        // 3 == Terminal Display (both AWT and Swing are null)
         } else {
             awtui = null;
             swingui = null;
@@ -77,12 +81,16 @@ public class WeatherStation implements Runnable {
              * for more information on formatting output.
             */
             
+            // If AWT, update label texts directly via pubic fields.
             if (userChoice == 1) {
                 awtui.celsiusField.setText(String.format("%6.2f", celsius));
                 awtui.kelvinField.setText(String.format("%6.2f", reading / 100.0));
+
+            // If Swing, update label texts via public helper functions.
             } else if (userChoice == 2) {
                 swingui.setKelvinJLabel(reading / 100.0);
                 swingui.setCelsiusJLabel(celsius);
+            // If Terminal, just print the line of temps into the Terminal.
             } else {
                 System.out.printf("Reading is %6.2f degrees C (and " + String.format("%6.2f", reading / 100.0) + " degrees K)%n", celsius) ;
             }
@@ -96,22 +104,28 @@ public class WeatherStation implements Runnable {
      *      Start the Thread.
      */
     public static void main(String[] args) {
+        // Declare and instantiate new scanner and set default value to zero.
         Scanner scanner = new Scanner(System.in);
         int userChoice = 0;
         
         System.out.println("Welcome to the RIT Weather Station!");
         System.out.println("How would you like your data displayed?");
         System.out.println("(AWT = 1 | Swing = 2 | Terminal = 3)");
+
+        // Keep user in the loop until they enter a valid input.
         while (userChoice <= 0 || userChoice >= 4) {  
-            
-            
             try {
                 System.out.print("Your choice: ");
+
+                // User input MUST be an int.
                 userChoice = scanner.nextInt();
+
+                // If input is an int, but out of range, let them know and keep in loop.
                 if (userChoice <= 0 || userChoice >= 4) { 
                     System.out.println("Invalid option! Please choose again.");
                 }
             } catch (Exception e) {
+                // If input is NOT an int, let thme know and keep in loop.
                 System.out.println("Invalid option! Please choose again.");
                 scanner = new Scanner(System.in);
             }
