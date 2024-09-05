@@ -1,0 +1,7 @@
+Activity #3a - Weather Station (w/ Observers) - Conor Race
+
+Rather than having each UI file having its own execution sequence,
+I implemented App.java, which allows for user input identical to that
+of activity #2 and executes the respective UI/observer based on the
+user input. Like activity #2 as well, the input is checked and secure
+to ensure no bad input is added which may result in the app breaking.
