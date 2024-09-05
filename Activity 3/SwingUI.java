@@ -111,12 +111,4 @@ public class SwingUI extends JFrame implements Observer {
         this.setKelvinJLabel(station.getKelvin());
         this.setCelsiusJLabel(station.getCelsius());
     }
-
-    public static void main(String[] args) {
-        WeatherStation ws = new WeatherStation();
-        Thread thread = new Thread(ws);
-        SwingUI swing = new SwingUI(ws);
-
-        thread.start() ;
-    }
 }

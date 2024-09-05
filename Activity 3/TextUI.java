@@ -49,15 +49,4 @@ public class TextUI implements Observer {
                 "Reading is %6.2f degrees C and %6.2f degrees K%n",
                 station.getCelsius(), station.getKelvin()) ;
     }
-
-    /*
-     * Start the application.
-     */
-    public static void main(String[] args) {
-        WeatherStation ws = new WeatherStation() ;
-        Thread thread = new Thread(ws) ;
-        TextUI ui = new TextUI(ws) ;
-
-        thread.start() ;
-    }
 }
