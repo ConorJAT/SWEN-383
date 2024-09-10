@@ -28,9 +28,14 @@ public class App {
             } catch (Exception e) {
                 // If input is NOT an int, let thme know and keep in loop.
                 System.out.println("Invalid option! Please choose again.");
-                scanner = new Scanner(System.in);
+
+                // From 3a Feedback - Using .next() to prevent having multiple instances of Scanner.
+                scanner.next();
             }
         }
+
+        // From 3a Feedback - Close the scanner when done using it.
+        scanner.close();
 
         // Declare and instantiate new WeatherStation and thread for the app.
         WeatherStation ws = new WeatherStation();
