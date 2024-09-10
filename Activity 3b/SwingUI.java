@@ -19,9 +19,11 @@ public class SwingUI extends JFrame implements Observer {
     private JLabel kelvinField;
     private JLabel celsiusField;
     private JLabel fahrenheitField;
+    private JLabel hgInchesField;
+    private JLabel millibarsField;
 
     // Declare and instantiate new font for display.
-    private static Font labelFont = new Font(Font.SERIF, Font.PLAIN, 72) ;
+    private static Font labelFont = new Font(Font.SERIF, Font.PLAIN, 42) ;
     
     public SwingUI(WeatherStation station) {
         super("Weather Station (SwingUI)") ;
@@ -36,36 +38,11 @@ public class SwingUI extends JFrame implements Observer {
          */
         this.setLayout(new GridLayout(1,0)) ;
 
-        /*
-         * There are two panels, one each for Kelvin and Celsius, added to the
-         * frame. Each Panel is a 2 row by 1 column grid, with the temperature
-         * name in the first row and the temperature itself in the second row.
-         */
-        JPanel panel ;
-
-        /*
-         * Set up Kelvin display.
-         */
-        panel = new JPanel(new GridLayout(2,1)) ;
-        this.add(panel) ;
-        createLabel(" Kelvin ", panel) ;
-        kelvinField = createLabel("", panel) ;
-
-        /*
-         * Set up Celsius display.
-         */
-        panel = new JPanel(new GridLayout(2,1)) ;
-        this.add(panel) ;
-        createLabel(" Celsius ", panel) ;
-        celsiusField = createLabel("", panel) ;
-
-        /*
-         * Set up Fahrenheit display.
-         */
-        panel = new JPanel(new GridLayout(2,1)) ;
-        this.add(panel) ;
-        createLabel(" Fahrenheit ", panel) ;
-        fahrenheitField = createLabel("", panel) ;
+        kelvinField = setNewJPanel(kelvinField, " Kelvin ");                // Set up Kelvin display.
+        celsiusField = setNewJPanel(celsiusField, " Celcius ");             // Set up Celcius display.
+        fahrenheitField = setNewJPanel(fahrenheitField, " Fahrenheit ");    // Set up Fahrenheit display.
+        hgInchesField = setNewJPanel(hgInchesField, " Inches ");            // Set up Mercury Inches display.
+        millibarsField = setNewJPanel(millibarsField, " Millibars ");       // Set up Millibars display.
 
         /*
          * Set up the frame's default close operation pack its elements,
@@ -76,25 +53,15 @@ public class SwingUI extends JFrame implements Observer {
         this.setVisible(true) ;
     }
 
-    /*
-     * Set the label holding the Kelvin temperature.
-     */
-    public void setKelvinJLabel(double temperature) {
-        kelvinField.setText(String.format("%6.2f", temperature)) ;
+    public JLabel setNewJPanel(JLabel label, String title) {
+        JPanel panel = new JPanel(new GridLayout(2,1)) ;
+        this.add(panel);
+        createLabel(title, panel);
+        return createLabel("", panel);
     }
 
-    /*
-     * Set the label holding the Celsius temperature.
-     */
-    public void setCelsiusJLabel(double temperature) {
-        celsiusField.setText(String.format("%6.2f", temperature)) ;
-    }
-
-    /*
-     * Set the label holding the Fahrenheit temperature.
-     */
-    public void setFahrenheitJLabel(double temperature) {
-        fahrenheitField.setText(String.format("%6.2f", temperature));
+    public void setWeatherJLabel(JLabel label, double value) {
+        label.setText(String.format("%6.2f", value));
     }
 
     /*
@@ -124,8 +91,10 @@ public class SwingUI extends JFrame implements Observer {
         /*
          * Retrieve and print the temperatures.
          */
-        this.setKelvinJLabel(station.getKelvin());
-        this.setCelsiusJLabel(station.getCelsius());
-        this.setFahrenheitJLabel(station.getFahrenheit());
+        this.setWeatherJLabel(kelvinField, station.getKelvin());
+        this.setWeatherJLabel(celsiusField, station.getCelsius());
+        this.setWeatherJLabel(fahrenheitField, station.getFahrenheit());
+        this.setWeatherJLabel(hgInchesField, station.getPressureInches());
+        this.setWeatherJLabel(millibarsField, station.getPressureMillibars());
     }
 }

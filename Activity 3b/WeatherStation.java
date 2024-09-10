@@ -25,11 +25,13 @@ import java.util.Observable ;
 public class WeatherStation extends Observable implements Runnable {
 
     private final KelvinTempSensor sensor ; // Temperature sensor.
+    private final Barometer barometer;
 
     private final long PERIOD = 1000 ;      // 1 sec = 1000 ms
     private final int KTOC = -27315 ;       // Kelvin to Celsius conversion.
 
     private int currentReading ;
+    private double currentPressure;
 
     /*
      * When a WeatherStation object is created, it in turn creates the sensor
@@ -37,7 +39,9 @@ public class WeatherStation extends Observable implements Runnable {
      */
     public WeatherStation() {
         sensor = new KelvinTempSensor() ;
+        barometer = new Barometer();
         currentReading = sensor.reading() ;
+        currentPressure = barometer.pressure();
     }
 
     /*
@@ -56,6 +60,7 @@ public class WeatherStation extends Observable implements Runnable {
              */
             synchronized(this) {
                 currentReading = sensor.reading() ;
+                currentPressure = barometer.pressure();
             }
             setChanged() ;
             notifyObservers() ;
@@ -84,5 +89,21 @@ public class WeatherStation extends Observable implements Runnable {
      */
     public synchronized double getFahrenheit() {
         return (getCelsius() * 1.8) + 32.0;
+    }
+
+    /*
+     * Return current pressure reading in inches of Mercury as a
+     * double precision number.
+     */
+    public synchronized double getPressureInches() {
+        return currentPressure;
+    }
+
+    /*
+     * Return current pressure reading in millibars as a
+     * double precision number.
+     */
+    public synchronized double getPressureMillibars() {
+        return currentPressure * 33.8637526;
     }
 }

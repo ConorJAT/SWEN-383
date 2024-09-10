@@ -46,7 +46,13 @@ public class TextUI implements Observer {
          * Retrieve and print the temperatures.
          */
         System.out.printf(
-                "Temperature: %6.2f C %6.2f F %6.2f K%n%n",
-                station.getCelsius(), station.getFahrenheit(), station.getKelvin()) ;
+            "%nTemperature: %6.2f C %6.2f F %6.2f K%n" +
+            "Pressure:    %6.2f inches %6.2f mbar%n",
+            station.getCelsius(), 
+            station.getFahrenheit(), 
+            station.getKelvin(), 
+            station.getPressureInches(), 
+            station.getPressureMillibars()
+        ) ;
     }
 }
