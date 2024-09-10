@@ -1,0 +1,6 @@
+Activity #3b - Weather Station (w/ Pressure Readings) - Conor Race
+
+Like my submission for part 3a, App.java allows for user input and 
+executes the respective UI/observer based on the user input. As always, 
+the input is checked and secure to ensure no bad input is added which 
+may result in the app breaking.
