@@ -53,6 +53,11 @@ public class SwingUI extends JFrame implements Observer {
         this.setVisible(true) ;
     }
 
+    /*
+     * Simplified helper function, used to more efficiently create the various
+     * JPanels for the Weather Station display. Returns a JLabel to update the
+     * local JLabel variables (DRY Design).
+     */
     public JLabel setNewJPanel(JLabel label, String title) {
         JPanel panel = new JPanel(new GridLayout(2,1)) ;
         this.add(panel);
@@ -60,6 +65,11 @@ public class SwingUI extends JFrame implements Observer {
         return createLabel("", panel);
     }
 
+    /*
+     * Simplified helper function, used to more efficiently format the 
+     * Weather Station data, rather than having each one being formatted
+     * in their own function (DRY Design).
+     */
     public void setWeatherJLabel(JLabel label, double value) {
         label.setText(String.format("%6.2f", value));
     }
