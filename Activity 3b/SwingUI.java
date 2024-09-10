@@ -18,6 +18,7 @@ public class SwingUI extends JFrame implements Observer {
     // Declare fields for temperature display.
     private JLabel kelvinField;
     private JLabel celsiusField;
+    private JLabel fahrenheitField;
 
     // Declare and instantiate new font for display.
     private static Font labelFont = new Font(Font.SERIF, Font.PLAIN, 72) ;
@@ -59,6 +60,14 @@ public class SwingUI extends JFrame implements Observer {
         celsiusField = createLabel("", panel) ;
 
         /*
+         * Set up Fahrenheit display.
+         */
+        panel = new JPanel(new GridLayout(2,1)) ;
+        this.add(panel) ;
+        createLabel(" Fahrenheit ", panel) ;
+        fahrenheitField = createLabel("", panel) ;
+
+        /*
          * Set up the frame's default close operation pack its elements,
          * and make the frame visible.
          */
@@ -79,6 +88,13 @@ public class SwingUI extends JFrame implements Observer {
      */
     public void setCelsiusJLabel(double temperature) {
         celsiusField.setText(String.format("%6.2f", temperature)) ;
+    }
+
+    /*
+     * Set the label holding the Fahrenheit temperature.
+     */
+    public void setFahrenheitJLabel(double temperature) {
+        fahrenheitField.setText(String.format("%6.2f", temperature));
     }
 
     /*
@@ -110,5 +126,6 @@ public class SwingUI extends JFrame implements Observer {
          */
         this.setKelvinJLabel(station.getKelvin());
         this.setCelsiusJLabel(station.getCelsius());
+        this.setFahrenheitJLabel(station.getFahrenheit());
     }
 }

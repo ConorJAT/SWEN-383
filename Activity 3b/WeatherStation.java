@@ -77,4 +77,12 @@ public class WeatherStation extends Observable implements Runnable {
     public synchronized double getKelvin() {
         return currentReading / 100.0 ;
     }
+
+    /*
+     * Return the current reading in degrees Fahrenheit as a
+     * double precision number.
+     */
+    public synchronized double getFahrenheit() {
+        return (getCelsius() * 1.8) + 32.0;
+    }
 }
