@@ -1,0 +1,43 @@
+Conor Race - Activity #7 - Composite Pattern
+
+1. Assuming we have classes representing general files (File), 
+text files (Text), sound files (Sound), and directory files (Folder), 
+assign each of these the general role it would play in the Composite 
+pattern as given on the web site (that is, which class(es) fill the 
+roles of Component, Leaf, and Composite). Briefly (2 sentences or fewer) 
+justify your assignments.
+
+In this particular example, the File class would fill the component role (interface), the 
+Folder class would fill the composite role and both the Text and Sound classes would fill
+in as leaf roles. This is because File serves as a base for all other file types and, Folder
+having the behavior of file hierarchy would naturally serve as our "branching" system, or
+composite. 
+
+
+2. Assuming we have classes representing general drawing objects (Drawable), 
+rectangles (Rectangle), ellipses (Ellipse), and groups (Group), assign each 
+of these the general role it would play in the pattern as given on the web 
+site (that is, which class(es) fill the roles of Component, Leaf, and Composite). 
+Briefly (2 sentences or fewer) justify your assignments.
+
+In this particular example, the Drawable class would fill the component role, the Group
+class would fill the composite role and both the Rectangle and Ellipse classes would fill
+the leaf roles. The Drawable class serves as basis for all things that can be drawn,
+regardless of complexity, whereas the Group class can have several basic shapes as children
+in order to form more complex drawable shapes.
+
+
+3. Identify another common application (or piece of an application) where 
+the Composite pattern would be applicable. That is, identify a situation where 
+the application as a whole should be able to treat collections of objects in 
+the same way as simple, individual objects. Name classes that might be used in 
+such subsystem, and associate these classes with the roles of Component, Leaf, 
+and Composite. Briefly (2 sentences or fewer) justify your assignments.
+
+One example where the composite pattern could be applicable could be something along the
+lines of a project manager. In this example, you would likely have classes similar to this
+structure: Project (the component), Team (the composite), Developer and Manager (the leaves).
+Assuming the Project was an interface that had a function like "doTask()", the Developer and
+Manager classes would all have their own unique doTask() methods. Additionally, the Team class
+would also have its own version of doTask() while also be capable to add and remove children to
+the team to perform smaller, more specific tasks.
